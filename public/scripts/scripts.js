@@ -30,26 +30,31 @@ const appendPalette = (id, name, colors, palId) => {
   $('.delete-pal').click(deletePalette);
 };
 
-const displayPalettes = (palettes, projects) => {
-  projects.forEach(project => {
-    const projectPals = palettes.filter(palette => palette.projectId === project.id);
-    projectPals.forEach(pal => {
-      const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
-      appendPalette(project.id, pal.name, colors, pal.id);
-    });
+const displayPalettes = (palettes, projectId) => {
+  palettes.forEach(pal => {
+    const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
+    appendPalette(projectId, pal.name, colors, pal.id);
   });
+
+  // projects.forEach(project => {
+  //   const projectPals = palettes.filter(palette => palette.projectId === project.id);
+  //   projectPals.forEach(pal => {
+  //   });
+  // });
 };
 
-const getPalettes = projects => {
-  return fetch('./api/v1/palettes').then(res => res.json()).then(res => displayPalettes(res, projects));
+const getPalettes = projectId => {
+  return fetch(`./api/v1/projects/${projectId}/palettes`)
+    .then(res => res.json())
+    .then(res => displayPalettes(res, projectId));
 };
 
 const displayProjects = projects => {
   projects.forEach(project => {
     showProject(project.id, project.title);
     addProject(project.title);
+    getPalettes(project.id);
   });
-  getPalettes(projects);
 };
 
 const getProjects = () => {

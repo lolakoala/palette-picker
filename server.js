@@ -137,9 +137,12 @@ app.get('/api/v1/projects', (request, response) => {
   }
 });
 
-app.get('/api/v1/palettes', (request, response) => {
-  if (app.locals.palettes) {
-    return response.status(200).json(app.locals.palettes);
+app.get('/api/v1/projects/:id/palettes', (request, response) => {
+  const projectId = request.params.id;
+  const palettes = app.locals.palettes.filter(pal => pal.projectId == projectId);
+
+  if (palettes.length) {
+    return response.status(200).json(palettes);
   } else {
     return response.sendStatus(404);
   }
