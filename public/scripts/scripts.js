@@ -18,15 +18,16 @@ const showProject = (id, title) => {
   $('.projects').append(`<div class='title' id='project${id}'><h4>${title}</h4></div>`);
 };
 
-const appendPalette = (id, name, colors) => {
+const appendPalette = (id, name, colors, palId) => {
   const colorDivs = colors.map(color => {
     return `<div style='background-color:${color}' class='pal-color'></div>`;
   });
-  $(`#project${id}`).append(`<div class='pal'>
+  $(`#project${id}`).append(`<div class='pal' id=${palId} >
     <h5>${name}</h5>
     ${colorDivs.join('')}
-    <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/446206-200.png' alt='delete' class='delete-pal'/>
+    <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/446206-200.png' alt='delete' class='delete-pal' />
   </div>`);
+  $('.delete-pal').click(deletePalette);
 };
 
 const displayPalettes = (palettes, projects) => {
@@ -34,7 +35,7 @@ const displayPalettes = (palettes, projects) => {
     const projectPals = palettes.filter(palette => palette.projectId === project.id);
     projectPals.forEach(pal => {
       const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
-      appendPalette(project.id, pal.name, colors);
+      appendPalette(project.id, pal.name, colors, pal.id);
     });
   });
 };
@@ -103,7 +104,7 @@ const addPalette = id => {
       'Content-Type': 'application/json'
     }
   }).then(res => res.json())
-    .then(res => appendPalette(id, res.name, hexArray));
+    .then(res => appendPalette(id, res.name, hexArray, res.id));
 };
 
 const rgba2hex = ( color ) => {
@@ -126,6 +127,15 @@ const handleAddPal = () => {
     .then(res => res.id).then(res => addPalette(res));
 };
 
+function deletePalette() {
+  console.log('in');
+  const id = parseInt($(this).closest('.pal').attr('id'));
+  fetch(`./api/v1/palettes/${id}`, {
+    method: 'DELETE'
+  });
+  $(this).closest('.pal').remove();
+}
+
 $(window).load(() => {
   getProjects();
   changeColor();
@@ -137,4 +147,8 @@ $(".color").click(event => toggleLockId(event));
 
 $('#add-project').click(handleAddProject);
 
-$('.add-pal').click(handleAddPal)
+$('.add-pal').click(handleAddPal);
+
+// $('.delete-pal').click(deletePalette);
+
+// $('.projects').on('click', '.delete-pal', deletePalette);
