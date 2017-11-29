@@ -18,20 +18,23 @@ const showProject = (id, title) => {
   $('.projects').append(`<div class='title' id='project${id}'><h4>${title}</h4></div>`);
 };
 
+const appendPalette = (id, name, colors) => {
+  const colorDivs = colors.map(color => {
+    return `<div style='background-color:${color}' class='pal-color'></div>`;
+  });
+  $(`#project${id}`).append(`<div class='pal'>
+    <h5>${name}</h5>
+    ${colorDivs.join('')}
+    <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/446206-200.png' alt='delete' class='delete-pal'/>
+  </div>`);
+};
+
 const displayPalettes = (palettes, projects) => {
   projects.forEach(project => {
     const projectPals = palettes.filter(palette => palette.projectId === project.id);
     projectPals.forEach(pal => {
       const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
-      const colorDivs = colors.map(color => {
-        return `<div style='background-color:${color}' class='pal-color'></div>`
-      });
-
-      $(`#project${project.id}`).append(`<div class='pal'>
-        <h5>${pal.name}</h5>
-        ${colorDivs.join('')}
-        <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/446206-200.png' alt='delete' class='delete-pal'/>
-      </div>`);
+      appendPalette(project.id, pal.name, colors);
     });
   });
 };
@@ -77,36 +80,50 @@ const handleAddProject = () => {
   addProject(title);
 };
 
-const 
+const addPalette = id => {
+  const colorsArray = ['color1', 'color2', 'color3', 'color4', 'color5'];
+  const hexArray = colorsArray.map(color => {
+    return rgba2hex($(`.${color}`).css('background-color'));
+  });
+  const palette = {
+    name: $('#new-palette').val(),
+    color1: hexArray[0],
+    color2: hexArray[1],
+    color3: hexArray[2],
+    color4: hexArray[3],
+    color5: hexArray[4],
+    projectId: id
+  };
+
+  fetch('./api/v1/palettes', {
+    method: 'POST',
+    body: JSON.stringify({ palette }),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+    .then(res => appendPalette(id, res.name, hexArray));
+};
+
+const rgba2hex = ( color ) => {
+  if ( ! color ) return false;
+  var parts = color.toLowerCase().match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/),
+    length = color.indexOf('rgba') ? 3 : 2;
+  delete(parts[0]);
+  for ( let iter = 1; iter <= length; iter++ ) {
+    parts[iter] = parseInt( parts[iter] ).toString(16);
+    if ( parts[iter].length === 1 ) parts[iter] = '0' + parts[iter];
+  }
+  return '#' + parts.join('').toUpperCase();
+};
+
 
 const handleAddPal = () => {
-  const projectId = fetch('./api/v1/projects')
+  fetch('./api/v1/projects')
     .then(res => res.json())
     .then(res => res.find(project => project.title === $('select').val()))
     .then(res => res.id).then(res => addPalette(res));
-
-  const colorsArray = ['color1', 'color2', 'color3', 'color4', 'color5'];
-  const hexArray = colorsArray.map(color => {
-    return $(`.${color}`).css('background-color');
-  });
-  const name = $('.new-palette').val();
-  const palette = {
-    name,
-    color1: hexArray[1],
-    color2: hexArray[2],
-    color3: hexArray[3],
-    color4: hexArray[4],
-    color5: hexArray[5]
-  };
-
-  // fetch('./api/v1/palettes', {
-  //   method: 'POST',
-  //   body: JSON.stringify({ palette }),
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   }
-  // })
 };
 
 $(window).load(() => {
