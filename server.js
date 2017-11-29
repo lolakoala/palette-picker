@@ -142,15 +142,36 @@ app.get('/api/v1/projects', (request, response) => {
     });
 });
 
-app.get('/api/v1/projects/:id/palettes', (request, response) => {
-  const projectId = request.params.id;
-  const palettes = app.locals.palettes.filter(pal => pal.projectId == projectId);
+// app.get('/api/v1/papers/:id/footnotes', (request, response) => {
+//   database('footnotes').where('paper_id', request.params.id).select()
+//     .then(notes => {
+//       if (notes.length) {
+//         return response.status(200).json(notes)
+//       } else {
+//         return response.status(404).json({
+//           error: `Could not find footnotes from paper with id of ${request.params.id}.`
+//         });
+//       }
+//     })
+//     .catch(error => {
+//       return response.status(500).json({ error });
+//     })
+// });
 
-  if (palettes.length) {
-    return response.status(200).json(palettes);
-  } else {
-    return response.sendStatus(404);
-  }
+app.get('/api/v1/projects/:id/palettes', (request, response) => {
+  database('palettes').where('projectId', request.params.id).select()
+    .then(palettes => {
+      if (palettes.length) {
+        return response.status(200).json(palettes);
+      } else {
+        return response.status(404).json({
+          error: `Could not find palettes from project with id of ${request.params.id}.`
+        });
+      }
+    })
+    .catch(error => {
+      return response.status(500).json({ error });
+    });
 });
 
 app.post('/api/v1/projects', (request, response) => {
