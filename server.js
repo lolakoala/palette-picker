@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('../knexfile')[environment];
+const database = require('knex')(configuration);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -166,7 +169,7 @@ app.post('/api/v1/projects', (request, response) => {
   }
 });
 
-app.post('/api/v1/palettes', (request, response) => {
+app.post('/api/v1/projects/:id/palettes', (request, response) => {
   const { palette } = request.body;
   const id = app.locals.palettes.length + 1;
   const newPalette = Object.assign({ id }, palette);
