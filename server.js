@@ -4,6 +4,7 @@ const app = express();
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const checkParams = require('./checkParams');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -142,22 +143,6 @@ app.get('/api/v1/projects', (request, response) => {
     });
 });
 
-// app.get('/api/v1/papers/:id/footnotes', (request, response) => {
-//   database('footnotes').where('paper_id', request.params.id).select()
-//     .then(notes => {
-//       if (notes.length) {
-//         return response.status(200).json(notes)
-//       } else {
-//         return response.status(404).json({
-//           error: `Could not find footnotes from paper with id of ${request.params.id}.`
-//         });
-//       }
-//     })
-//     .catch(error => {
-//       return response.status(500).json({ error });
-//     })
-// });
-
 app.get('/api/v1/projects/:id/palettes', (request, response) => {
   database('palettes').where('projectId', request.params.id).select()
     .then(palettes => {
@@ -175,21 +160,15 @@ app.get('/api/v1/projects/:id/palettes', (request, response) => {
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  const { title } = request.body;
-  const id = app.locals.projects.length + 1;
-
-  if (!title) {
-    return response.status(422).send({
-      error: 'No title property provided.'
+  const project = request.body;
+  checkParams(['title'], project, response);
+  database('projects').insert(project, 'id')
+    .then(project => {
+      return response.status(201).json({ id: project[0] });
+    })
+    .catch( error => {
+      return response.status(500).json({ error });
     });
-  } else if (app.locals.projects.find(project => project.title === title)) {
-    return response.status(422).send({
-      error: 'There is already an existing project with that name.'
-    });
-  } else {
-    app.locals.projects.push({ id, title });
-    return response.status(201).json({ id, title });
-  }
 });
 
 app.post('/api/v1/projects/:id/palettes', (request, response) => {
