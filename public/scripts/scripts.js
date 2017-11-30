@@ -31,16 +31,11 @@ const appendPalette = (id, name, colors, palId) => {
 };
 
 const displayPalettes = (palettes, projectId) => {
+  console.log(palettes)
   palettes.forEach(pal => {
     const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
     appendPalette(projectId, pal.name, colors, pal.id);
   });
-
-  // projects.forEach(project => {
-  //   const projectPals = palettes.filter(palette => palette.projectId === project.id);
-  //   projectPals.forEach(pal => {
-  //   });
-  // });
 };
 
 const getPalettes = projectId => {
@@ -86,7 +81,7 @@ const handleAddProject = () => {
   addProject(title);
 };
 
-const addPalette = id => {
+const addPalette = projectId => {
   const colorsArray = ['color1', 'color2', 'color3', 'color4', 'color5'];
   const hexArray = colorsArray.map(color => {
     return rgba2hex($(`.${color}`).css('background-color'));
@@ -98,18 +93,18 @@ const addPalette = id => {
     color3: hexArray[2],
     color4: hexArray[3],
     color5: hexArray[4],
-    projectId: id
+    projectId
   };
 
-  fetch('./api/v1/palettes', {
+  fetch(`./api/v1/projects/${projectId}/palettes`, {
     method: 'POST',
-    body: JSON.stringify({ palette }),
+    body: JSON.stringify(palette),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
   }).then(res => res.json())
-    .then(res => appendPalette(id, res.name, hexArray, res.id));
+    .then(res => appendPalette(projectId, palette.name, hexArray, res.id));
 };
 
 const rgba2hex = ( color ) => {
