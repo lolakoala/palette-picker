@@ -1,6 +1,6 @@
 html,
 body {
-  height: 100vh;
+  height: 80vh;
    width: 100%;
    margin: 0;
    padding: 0;
@@ -148,9 +148,9 @@ h4 {
   align-items: center;
 }
 
-.title {
+.header-title {
   display: inline-block;
-  /*height: 80%;*/
+  height: 80%;
   width: auto;
 }
 
