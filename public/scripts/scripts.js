@@ -23,9 +23,13 @@ const appendPalette = (id, name, colors, palId) => {
     return `<div style='background-color:${color}' class='pal-color'></div>`;
   });
   $(`#project${id}`).append(`<div class='pal' id=${palId} >
-    <h5>${name}</h5>
-    ${colorDivs.join('')}
-    <img src='https://d30y9cdsu7xlg0.cloudfront.net/png/446206-200.png' alt='delete' class='delete-pal' />
+    <div class='name-trash'>
+      <h5>${name}</h5>
+      <img src='../images/garbage.png' alt='delete' class='delete-pal' />
+    </div>
+    <div class='pal-colors'>
+      ${colorDivs.join('')}
+    </div>
   </div>`);
   $('.delete-pal').click(deletePalette);
 };
@@ -56,12 +60,16 @@ const getProjects = () => {
   return fetch('./api/v1/projects').then(res => res.json()).then(res => displayProjects(res));
 };
 
-const toggleLockId = event => {
+function toggleLockId(event) {
   const { id } = event.target;
 
   if (id.includes('color')) {
+    $(`#${id}`).children('img').attr('src', '../images/locked.png');
+    $(`#${id}`).children('img').attr('alt', 'This color is locked.');
     $(`#${id}`).attr('id', `lock${id.substr(id.length - 1)}`);
   } else {
+    $(`#${id}`).children('img').attr('src', '../images/unlocked.png');
+    $(`#${id}`).children('img').attr('alt', 'This color is unlocked.');
     $(`#${id}`).attr('id', `color${id.substr(id.length - 1)}`);
   }
 };
@@ -76,7 +84,7 @@ const handleAddProject = () => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
-  }).then(res => res.json()).then(res => showProject(res.id, res.title));
+  }).then(res => res.json()).then(res => showProject(res.id, title));
   //add to drop down
   addProject(title);
 };

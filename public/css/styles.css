@@ -4,6 +4,10 @@ body {
    width: 100%;
    margin: 0;
    padding: 0;
+   background-image: url('../images/art-supplies.jpg');
+   background-repeat: repeat;
+   background-size: 10%;
+   font-family: 'Josefin Sans', sans-serif;
 }
 
 h1 {
@@ -20,12 +24,21 @@ article {
   flex-direction: column;
 }
 
+h4 {
+  font-size: 20px;
+}
+
 .color {
   height: 75px;
   width: 75px;
   border-radius: 100%;
   background-color: black;
   margin: 5px 25px 5px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*border: 1px solid white;*/
+   box-shadow: 1px 1px 3px 4px #a6b3bf;
 }
 
 .pal-color,
@@ -36,9 +49,177 @@ article {
 
 .pal {
   display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+}
+
+.pal-colors,
+.name-trash {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.pal-colors {
+  margin-bottom: 15px;
+  border-radius: 20px;
+  border: 1px solid white;
+  overflow: hidden;
 }
 
 .projects {
-  height: 90vh;
+  height: 65vh;
   overflow: scroll;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.delete-pal {
+  margin-top: 10px;
+}
+
+.projects-header {
+  height: auto;
+  width: 50%;
+  display: inline-block;
+  margin: auto;
+}
+
+.palette {
+  position: relative;
+}
+
+.paint-palette {
+  height: 400px;
+  width: auto;
+}
+
+#color1,
+#lock1 {
+  position: absolute;
+  top: 130px;
+  left: 20px;
+}
+
+#color2,
+#lock2 {
+  position: absolute;
+  top: 70px;
+  left: 80px;
+}
+
+#color3,
+#lock3 {
+  position: absolute;
+  top: 70px;
+  left: 160px;
+}
+
+#color4,
+#lock4 {
+  position: absolute;
+  top: 140px;
+  left: 210px;
+}
+
+#color5,
+#lock5 {
+  position: absolute;
+  top: 160px;
+  left: 110px;
+}
+
+.header {
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  display: inline-block;
+  height: 80%;
+  width: auto;
+}
+
+.new {
+  height: 60px;
+  width: 85px;
+  border-radius: 30px;
+  background-color: black;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 13px;
+  position: absolute;
+  top: 120px;
+  left: 20px;
+}
+
+#new-title,
+#add-project {
+  width: 120px;
+  border-radius: 20px;
+  border: 1px solid black;
+  position: absolute;
+  top: 120px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 13px;
+}
+
+#new-title {
+  height: 30px;
+  left: 315px;
+  padding-left: 5px;
+}
+
+#add-project {
+  height: 35px;
+  left: 450px;
+  background-color: black;
+  color: white;
+}
+
+.new-palette-box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: absolute;
+  top: 200px;
+  left: 375px;
+}
+
+#new-palette,
+select,
+.add-pal {
+  margin-bottom: 20px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 13px;
+}
+
+#new-palette {
+  background-color: white;
+  color: black;
+  padding-left: 5px;
+}
+
+.add-pal {
+  height: 35px;
 }
