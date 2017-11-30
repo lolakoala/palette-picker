@@ -107,36 +107,36 @@ h4 {
 #color1,
 #lock1 {
   position: absolute;
-  top: 130px;
-  left: 20px;
+  top: 135px;
+  left: 16px;
 }
 
 #color2,
 #lock2 {
   position: absolute;
   top: 70px;
-  left: 80px;
+  left: 78px;
 }
 
 #color3,
 #lock3 {
   position: absolute;
-  top: 70px;
-  left: 160px;
+  top: 71px;
+  left: 165px;
 }
 
 #color4,
 #lock4 {
   position: absolute;
-  top: 140px;
+  top: 146px;
   left: 210px;
 }
 
 #color5,
 #lock5 {
   position: absolute;
-  top: 160px;
-  left: 110px;
+  top: 220px;
+  left: 40px;
 }
 
 .header {
