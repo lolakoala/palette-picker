@@ -124,7 +124,7 @@ exports.seed = function(knex, Promise) {
               }
             ]);
           })
-          .then(() => console.log('seeding success!'))
+          .then(() => console.log('test seeding success!'))
           .catch(error => console.log(error))
       ]);
     })
