@@ -169,12 +169,8 @@ $(".new").click(changeColor);
 
 $(".color").click(event => toggleLockId(event));
 
-$(".lock").click(event => toggleLockImg(event))
+$(".lock, .locked").click(event => toggleLockImg(event))
 
 $('#add-project').click(handleAddProject);
 
 $('.add-pal').click(handleAddPal);
-
-// $('.delete-pal').click(deletePalette);
-
-// $('.projects').on('click', '.delete-pal', deletePalette);

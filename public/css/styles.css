@@ -154,6 +154,7 @@ h4 {
   width: auto;
 }
 
+
 .new {
   height: 60px;
   width: 85px;
@@ -231,4 +232,24 @@ select,
     height: 100vh;
     top: 100px;
     width: 100%;
+}
+
+#add-project,
+.add-pal {
+  border: 1px solid white;
+}
+
+button:hover,
+select:hover,
+#add-project:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+.color,
+.lock,
+.locked,
+.delete-pal {
+  cursor: pointer;
 }
