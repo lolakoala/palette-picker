@@ -38,7 +38,7 @@ h4 {
   justify-content: center;
   align-items: center;
   /*border: 1px solid white;*/
-   box-shadow: 1px 1px 3px 4px #a6b3bf;
+   box-shadow: 0px 0px 1px 3px #6b6a6a;
 }
 
 .pal-color,
@@ -71,18 +71,15 @@ h4 {
 }
 
 .projects {
-  height: 65vh;
-  overflow: scroll;
-  background-color: black;
-  color: white;
-  padding: 20px;
-  margin-top: 10px;
-  margin-right: 10px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  z-index: 1;
+    height: 65vh;
+    overflow: scroll;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
 }
 
 .delete-pal {
@@ -151,7 +148,7 @@ h4 {
 
 .title {
   display: inline-block;
-  height: 80%;
+  /*height: 80%;*/
   width: auto;
 }
 
@@ -222,4 +219,14 @@ select,
 
 .add-pal {
   height: 35px;
+}
+
+.black {
+  z-index: 0;
+    position: absolute;
+    background-color: black;
+    opacity: 0.8;
+    height: 100vh;
+    top: 100px;
+    width: 100%;
 }
