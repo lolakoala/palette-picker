@@ -12,7 +12,6 @@ chai.use(chaiHttp);
 describe('Client Routes', () => {
 
   it('should return the homepage with text', () => {
-    console.log(environment)
     return chai.request(server)
       .get('/')
       .then(response => {
@@ -73,9 +72,14 @@ describe('API Routes', () => {
         .get('/api/v1/projects')
         .then(response => {
           response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(3);
+          response.body[0].should.have.property('title');
+          response.body[0].title.should.equal('seasons');
         })
         .catch(error => console.log(error));
-    })
-  })
+    });
+  });
 
 });
