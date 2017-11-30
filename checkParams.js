@@ -4,7 +4,7 @@ const checkParams = (array, body, response)  => {
       return response.status(422).json({
         error: `You are missing the ${requiredParameter} property.`
       });
-    }
+    } 
   }
 };
 

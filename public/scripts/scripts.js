@@ -98,13 +98,13 @@ const addPalette = projectId => {
 
   fetch(`./api/v1/projects/${projectId}/palettes`, {
     method: 'POST',
-    body: JSON.stringify({ palette }),
+    body: JSON.stringify(palette),
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
   }).then(res => res.json())
-    .then(res => appendPalette(id, res.name, hexArray, res.id));
+    .then(res => appendPalette(projectId, palette.name, hexArray, res.id));
 };
 
 const rgba2hex = ( color ) => {

@@ -171,19 +171,56 @@ app.post('/api/v1/projects', (request, response) => {
     });
 });
 
-app.post('/api/v1/projects/:id/palettes', (request, response) => {
-  const { palette } = request.body;
-  const id = app.locals.palettes.length + 1;
-  const newPalette = Object.assign({ id }, palette);
+// app.post('/api/v1/papers/:id/footnotes', (request, response) => {
+//   let note = request.body;
+//   const paper_id = request.params.id;
+//
+//   for (let requiredParameter of ['note']) {
+//     if (!note[requiredParameter]) {
+//       return response.status(422).json({
+//         error: `You are missing the ${requiredParameter} property.`
+//       })
+//     }
+//   };
+//
+//   note = Object.assign({ paper_id }, note);
+//
+//   database('footnotes').insert(newNote, 'id')
+//     .then(note => {
+//       response.status(201).json({ id: note[0] });
+//     })
+//     .catch(error => {
+//       return response.status(500).json({ error });
+//     })
+// });
 
-  if (palette) {
-    app.locals.palettes.push(newPalette);
-    return response.status(201).json(newPalette);
-  } else {
-    return response.status(422).send({
-      error: 'No palette property provided.'
+app.post('/api/v1/projects/:id/palettes', (request, response) => {
+  const palette = request.body;
+  // const projectId = request.params.id;
+  const paramsArray = ['name', 'color1', 'color2', 'color3', 'color4', 'color5', 'projectId'];
+  checkParams(paramsArray, palette, response);
+
+  database('palettes').insert(palette, 'id')
+    .then(palette => {
+      response.status(201).json({ id: palette[0] });
+    })
+    .catch(error => {
+      console.log(error)
+      return response.status(500).json({ error });
     });
-  }
+
+  //
+  // const id = app.locals.palettes.length + 1;
+  // const newPalette = Object.assign({ id }, palette);
+  //
+  // if (palette) {
+  //   app.locals.palettes.push(newPalette);
+  //   return response.status(201).json(newPalette);
+  // } else {
+  //   return response.status(422).send({
+  //     error: 'No palette property provided.'
+  //   });
+  // }
 });
 
 
