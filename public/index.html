@@ -2,36 +2,48 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <title>Palette Picker</title>
   </head>
   <body>
-    <section>
-      <h1>Palette Picker</h1>
+    <section class='header'>
+      <img src='https://fontmeme.com/permalink/171130/884c04e59c29f322a51f61e741a6e2fc.png' alt='Palette Picker' class='title' />
     </section>
     <section>
       <article class="palette">
+        <img src='/images/palette.png' alt='a paint palette' class='paint-palette' />
         <div id="color1" class="color color1">
+          <img src='/images/unlocked.png' alt='This color is unlocked.' class='lock' />
         </div>
         <div id="color2" class="color color2">
+          <img src='/images/unlocked.png' alt='This color is unlocked.' class='lock' />
         </div>
         <div id="color3" class="color color3">
+          <img src='/images/unlocked.png' alt='This color is unlocked.' class='lock' />
         </div>
         <div id="color4" class="color color4">
+          <img src='/images/unlocked.png' alt='This color is unlocked.' class='lock' />
         </div>
         <div id="color5" class="color color5">
+          <img src='/images/unlocked.png' alt='This color is unlocked.' class='lock' />
         </div>
       </article>
       <article class="form">
         <button class="new">Generate New Palette</button>
-        <input type="text" placeholder="Project Name" id="new-title" />
-        <button id='add-project'>Add New Project</button>
-        <select>
-        </select>
-        <input type="text" placeholder="Palette Name" id="new-palette"/>
-        <button class='add-pal'>Save Palette</button>
+        <div class='new-title-box'>
+          <input type="text" placeholder="Project Name" id="new-title" />
+          <button id='add-project'>Add New Project</button>
+        </div>
+        <div class='new-palette-box'>
+          <input type="text" placeholder="Palette Name" id="new-palette"/>
+          <select>
+          </select>
+          <button class='add-pal'>Save Palette</button>
+        </div>
       </article>
       <article class="projects">
+        <img src='https://fontmeme.com/permalink/171130/4126d612803c004f2f8155a96e5ef040.png' alt='projects' class='projects-header' />
       </article>
     </section>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
