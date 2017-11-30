@@ -51,7 +51,7 @@ h4 {
 .pal {
   display: flex;
   flex-direction: column;
-  border: 1px solid white;
+  border: 01px solid #6b6a6a;
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 20px;
@@ -67,7 +67,6 @@ h4 {
 .pal-colors {
   margin-bottom: 15px;
   border-radius: 20px;
-  border: 1px solid white;
   overflow: hidden;
 }
 
