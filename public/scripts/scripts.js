@@ -44,7 +44,8 @@ const displayPalettes = (palettes, projectId) => {
 const getPalettes = projectId => {
   return fetch(`./api/v1/projects/${projectId}/palettes`)
     .then(res => res.json())
-    .then(res => displayPalettes(res, projectId));
+    .then(res => displayPalettes(res, projectId))
+    .catch(error => { throw error; });
 };
 
 const displayProjects = projects => {
@@ -56,7 +57,10 @@ const displayProjects = projects => {
 };
 
 const getProjects = () => {
-  return fetch('./api/v1/projects').then(res => res.json()).then(res => displayProjects(res));
+  return fetch('./api/v1/projects')
+    .then(res => res.json())
+    .then(res => displayProjects(res))
+    .catch(error => { throw error; });
 };
 
 function toggleLockImg(event) {
@@ -98,7 +102,8 @@ const handleAddProject = () => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
-  }).then(res => res.json()).then(res => showProject(res.id, title));
+  }).then(res => res.json()).then(res => showProject(res.id, title))
+    .catch(error => { throw error; });
   addProject(title);
 };
 
@@ -125,7 +130,8 @@ const addPalette = projectId => {
       'Content-Type': 'application/json'
     }
   }).then(res => res.json())
-    .then(res => appendPalette(projectId, palette.name, hexArray, res.id));
+    .then(res => appendPalette(projectId, palette.name, hexArray, res.id))
+    .catch(error => { throw error; });
 };
 
 const rgba2hex = ( color ) => {
@@ -145,14 +151,15 @@ const handleAddPal = () => {
   fetch('./api/v1/projects')
     .then(res => res.json())
     .then(res => res.find(project => project.title === $('select').val()))
-    .then(res => res.id).then(res => addPalette(res));
+    .then(res => res.id).then(res => addPalette(res))
+    .catch(error => { throw error; });
 };
 
 function deletePalette() {
   const id = parseInt($(this).closest('.pal').attr('id'));
   fetch(`./api/v1/palettes/${id}`, {
     method: 'DELETE'
-  });
+  }).catch(error => { throw error; });
   $(this).closest('.pal').remove();
 }
 
