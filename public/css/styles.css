@@ -78,7 +78,7 @@ h4 {
     color: white;
     padding: 20px;
     margin-top: 10px;
-    margin-right: 150px;
+    margin-right: 600px;
     border-radius: 10px;
 }
 
@@ -97,7 +97,7 @@ h4 {
 
 .palette {
   position: relative;
-  margin-left: 150px;
+  margin-left: 550px;
 }
 
 .paint-palette {
@@ -166,7 +166,7 @@ h4 {
   font-size: 13px;
   position: absolute;
   top: 120px;
-  left: 162px;
+  left: 560px;
 }
 
 #new-title,
@@ -182,13 +182,13 @@ h4 {
 
 #new-title {
   height: 30px;
-  left: 436px;
+  left: 800px;
   padding-left: 5px;
 }
 
 #add-project {
   height: 35px;
-  left: 576px;
+  left: 956px;
   background-color: black;
   color: white;
 }
@@ -199,7 +199,7 @@ h4 {
   align-items: stretch;
   position: absolute;
   top: 200px;
-  left: 564px;
+  left: 946px;
 }
 
 #new-palette,
@@ -262,28 +262,54 @@ select:hover,
 }
 
 
-@media (max-width: 1865px) {
+@media (max-width: 1920px) {
   .projects {
-    margin-right: 10px;
+    margin-right: 300px;
   }
 
   #add-project {
-    left: 450px;
+    left: 825px;
   }
 
   #new-title {
-    left: 315px;
+    left: 675px;
   }
 
   .new-palette-box {
-    left: 375px;
+    left: 750px;
   }
 
   .palette {
-    margin-left: 0px;
+    margin-left: 350px;
   }
 
   .new {
-    left: 20px;
+    left: 300px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .projects {
+    margin-right: 100px;
+  }
+
+  #add-project {
+    left: 625px;
+  }
+
+  #new-title {
+    left: 475px;
+  }
+
+  .new-palette-box {
+    left: 550px;
+  }
+
+  .palette {
+    margin-left: 150px;
+  }
+
+  .new {
+    left: 100px;
   }
 }
