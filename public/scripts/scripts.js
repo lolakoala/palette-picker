@@ -35,7 +35,6 @@ const appendPalette = (id, name, colors, palId) => {
 };
 
 const displayPalettes = (palettes, projectId) => {
-  console.log(palettes)
   palettes.forEach(pal => {
     const colors = [pal.color1, pal.color2, pal.color3, pal.color4, pal.color5];
     appendPalette(projectId, pal.name, colors, pal.id);
@@ -92,7 +91,6 @@ function toggleLockId(event) {
 
 const handleAddProject = () => {
   const title = $('#new-title').val();
-  //add to DB and dom
   fetch('./api/v1/projects', {
     method: 'POST',
     body: JSON.stringify({ title }),
@@ -101,7 +99,6 @@ const handleAddProject = () => {
       'Content-Type': 'application/json'
     }
   }).then(res => res.json()).then(res => showProject(res.id, title));
-  //add to drop down
   addProject(title);
 };
 
@@ -152,7 +149,6 @@ const handleAddPal = () => {
 };
 
 function deletePalette() {
-  console.log('in');
   const id = parseInt($(this).closest('.pal').attr('id'));
   fetch(`./api/v1/palettes/${id}`, {
     method: 'DELETE'
