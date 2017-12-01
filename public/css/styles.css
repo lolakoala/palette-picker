@@ -256,9 +256,28 @@ select:hover,
 }
 
 
-@media (max-width: 1500px) {
+@media (max-width: 1865px) {
   .projects {
-    background-color: #3ee33e;
-    margin-right: 10px !important;
+    margin-right: 10px;
+  }
+
+  #add-project {
+    left: 450px;
+  }
+
+  #new-title {
+    left: 315px;
+  }
+
+  .new-palette-box {
+    left: 375px;
+  }
+
+  .palette {
+    margin-left: 0px;
+  }
+
+  .new {
+    left: 20px;
   }
 }
