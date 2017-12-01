@@ -40,31 +40,10 @@ describe('API Routes', () => {
     knex.migrate.latest();
   });
 
-  beforeEach(() => {
+  beforeEach((done) => {
     knex.seed.run();
+    done();
   });
-
-  // describe('GET /api/v1/students', () => {
-  //   it('should return all of the students', () => {
-  //     return chai.request(server)
-  //     .get('/api/v1/students')
-  //     .then(response => {
-  //       response.should.have.status(200);
-  //       response.should.be.json;
-  //       response.body.should.be.a('array');
-  //       response.body.length.should.equal(3);
-  //       response.body[0].should.have.property('lastname');
-  //       response.body[0].lastname.should.equal('Turing');
-  //       response.body[0].should.have.property('program');
-  //       response.body[0].program.should.equal('FE');
-  //       response.body[0].should.have.property('enrolled');
-  //       response.body[0].enrolled.should.equal(true);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  //   });
-  // });
 
   describe('GET /api/v1/projects', () => {
     it('should return all of the projects', () => {
@@ -78,7 +57,35 @@ describe('API Routes', () => {
           response.body[0].should.have.property('title');
           response.body[0].title.should.equal('seasons');
         })
-        .catch(error => console.log(error));
+        .catch(error => throw error);
+    });
+  });
+  describe('GET /api/v1/projects/1/palettes', () => {
+    it('should return an array of palettes with projectId 1', () => {
+      return chai.request(server)
+        .get('/api/v1/projects/1/palettes')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body.length.should.equal(11);
+          response.body[0].should.have.property('name');
+          response.body[0].title.should.equal('summer');
+          response.body[0].should.have.property('color1');
+          response.body[0].color1.should.equal('#a3a380');
+          response.body[0].should.have.property('color2');
+          response.body[0].color2.should.equal('#d6ce93');
+          response.body[0].should.have.property('color3');
+          response.body[0].color2.should.equal('#efebce');
+          response.body[0].should.have.property('color4');
+          response.body[0].color2.should.equal('#d8a48f');
+          response.body[0].should.have.property('color5');
+          response.body[0].color2.should.equal('#bb8588');
+          response.body[0].should.have.property('projectId');
+          response.body[0].projectId.should.equal(1);
+        })
+        .catch(error => throw error);
+
     });
   });
 
