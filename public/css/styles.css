@@ -230,7 +230,7 @@ select,
     position: absolute;
     background-color: black;
     opacity: 0.8;
-    height: 100vh;
+    height: 150vh;
     top: 100px;
     width: 100%;
 }
@@ -253,6 +253,12 @@ select:hover,
 .locked,
 .delete-pal {
   cursor: pointer;
+}
+
+.lock,
+.locked {
+  height: 50px;
+  width: auto;
 }
 
 
