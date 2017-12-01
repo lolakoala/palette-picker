@@ -63,11 +63,11 @@ function toggleLockImg(event) {
   const imgClass = event.target.className;
 
   if (imgClass === 'lock') {
-    $(event.target).attr('src', '../images/locked.png');
+    $(event.target).attr('src', '../images/lock.svg');
     $(event.target).attr('alt', 'This color is locked.');
     $(event.target).attr('class', 'locked');
   } else {
-    $(event.target).attr('src', '../images/unlocked.png');
+    $(event.target).attr('src', '../images/lock-open.svg');
     $(event.target).attr('alt', 'This color is unlocked.');
     $(event.target).attr('class', 'lock');
   }
@@ -77,12 +77,12 @@ function toggleLockId(event) {
   const { id } = event.target;
 
   if (id.includes('color')) {
-    $(`#${id}`).children('img').attr('src', '../images/locked.png');
+    $(`#${id}`).children('img').attr('src', '../images/lock.svg');
     $(`#${id}`).children('img').attr('alt', 'This color is locked.');
     $(`#${id}`).children('img').attr('class', 'locked');
     $(`#${id}`).attr('id', `lock${id.substr(id.length - 1)}`);
   } else {
-    $(`#${id}`).children('img').attr('src', '../images/unlocked.png');
+    $(`#${id}`).children('img').attr('src', '../images/lock-open.svg');
     $(`#${id}`).children('img').attr('alt', 'This color is unlocked.');
     $(`#${id}`).children('img').attr('class', 'lock');
     $(`#${id}`).attr('id', `color${id.substr(id.length - 1)}`);
