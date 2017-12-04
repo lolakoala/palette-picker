@@ -6,7 +6,7 @@ const changeColor = () => {
   const colorsArray = [1, 2, 3, 4, 5];
 
   colorsArray.forEach(num => {
-    $(`#color${num}`).css("background-color", randomColor())
+    $(`#color${num}`).css("background-color", randomColor());
   });
 };
 
@@ -91,7 +91,7 @@ function toggleLockId(event) {
     $(`#${id}`).children('img').attr('class', 'lock');
     $(`#${id}`).attr('id', `color${id.substr(id.length - 1)}`);
   }
-};
+}
 
 const handleAddProject = () => {
   const title = $('#new-title').val();
@@ -172,8 +172,7 @@ $(".new").click(changeColor);
 
 $(".color").click(event => toggleLockId(event));
 
-$(".lock, .locked").click(event => toggleLockImg(event))
-
+$(".lock, .locked").click(event => toggleLockImg(event));
 $('#add-project').click(handleAddProject);
 
 $('.add-pal').click(handleAddPal);
