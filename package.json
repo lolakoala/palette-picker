@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --exit"
+    "test": "NODE_ENV=test mocha --exit",
+    "lint": "./node_modules/.bin/eslint ./",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
