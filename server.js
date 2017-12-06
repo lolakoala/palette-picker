@@ -7,10 +7,21 @@ const database = require('knex')(configuration);
 
 const checkParams = require('./checkParams');
 
+const requireHTTPS = (request, response, next) => {
+  if (request.header('x-forwarded-proto') !== 'https') {
+    return response.redirect(`https://${request.header('host')}${request.url}`);
+  }
+  next();
+};
+
+if (process.env.NODE_ENV === 'production') { app.use(requireHTTPS); }
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
+
+
 
 app.set('port', process.env.PORT || 3000);
 
