@@ -41,11 +41,20 @@ const displayPalettes = (palettes, projectId) => {
   });
 };
 
+const getOfflinePalettes = id => {
+  loadOfflinePalettes(id)
+    .then(palettes => displayPalettes(palettes, id))
+    .catch(error => { throw error; });
+};
+
 const getPalettes = projectId => {
   return fetch(`./api/v1/projects/${projectId}/palettes`)
     .then(res => res.json())
     .then(res => displayPalettes(res, projectId))
-    .catch(error => { throw error; });
+    .catch(error => {
+      getOfflinePalettes(projectId);
+      throw error;
+    });
 };
 
 const displayProjects = projects => {
@@ -56,11 +65,20 @@ const displayProjects = projects => {
   });
 };
 
+const getOfflineProjects = () => {
+  loadOfflineProjects()
+    .then(projects => displayProjects(projects))
+    .catch(error => { throw error; });
+};
+
 const getProjects = () => {
   return fetch('./api/v1/projects')
     .then(res => res.json())
     .then(res => displayProjects(res))
-    .catch(error => { throw error; });
+    .catch(error => {
+      getOfflineProjects();
+      throw error;
+    });
 };
 
 function toggleLockImg(event) {
@@ -104,6 +122,14 @@ const handleAddProject = () => {
     }
   }).then(res => res.json()).then(res => showProject(res.id, title))
     .catch(error => { throw error; });
+  const id = Date.now();
+  saveOfflineProject({ id, title })
+    .then(palette => {
+      if (!navigator.onLine) {
+        showProject(id, title);
+      }
+    })
+    .catch(error => { throw error; });
   addProject(title);
 };
 
@@ -146,6 +172,38 @@ const rgba2hex = ( color ) => {
   return '#' + parts.join('').toUpperCase();
 };
 
+const createOfflinePalette = (projectId) => {
+  const colorsArray = ['color1', 'color2', 'color3', 'color4', 'color5'];
+  const hexArray = colorsArray.map(color => {
+    return rgba2hex($(`.${color}`).css('background-color'));
+  });
+  const id = Date.now();
+  const palette = {
+    id,
+    name: $('#new-palette').val(),
+    color1: hexArray[0],
+    color2: hexArray[1],
+    color3: hexArray[2],
+    color4: hexArray[3],
+    color5: hexArray[4],
+    projectId
+  };
+
+  saveOfflinePalette(palette)
+    .then(palette => {
+      if (!navigator.onLine) {
+        appendPalette(projectId, palette.name, hexArray, palette.id);
+      }
+    })
+    .catch(error => { throw error; });
+};
+
+const addOfflinePalette = () => {
+  loadOfflineProjects()
+    .then(projects => projects.find(project => project.title === $('select').val()))
+    .then(project => createOfflinePalette(project.id))
+    .catch(error => { throw error; });
+};
 
 const handleAddPal = () => {
   fetch('./api/v1/projects')
@@ -153,6 +211,7 @@ const handleAddPal = () => {
     .then(res => res.find(project => project.title === $('select').val()))
     .then(res => res.id).then(res => addPalette(res))
     .catch(error => { throw error; });
+  addOfflinePalette();
 };
 
 function deletePalette() {
@@ -177,15 +236,31 @@ $('#add-project').click(handleAddProject);
 
 $('.add-pal').click(handleAddPal);
 
+let db = new Dexie('palettePicker');
+
+db.version(1).stores({
+  projects: 'id, title',
+  palettes: 'id, name, color1, color2, color3, color4, color5, projectId'
+});
+
+const saveOfflineProject = project => {
+  return db.projects.add(project);
+};
+
+const saveOfflinePalette = palette => {
+  return db.palettes.add(palette);
+};
+
+const loadOfflineProjects = () => {
+  return db.projects.toArray();
+};
+
+const loadOfflinePalettes = id => {
+  return db.palettes.toArray().filter(palette => palette.projectId === id);
+};
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-
-    // Load markdowns from indexedDB
-    // loadOfflineMarkdowns()
-    //   .then(markdowns => appendMarkdowns(markdowns))
-    //   .catch(error => console.log(`Error loading markdowns: ${error}`));
-
-    // Register a new service worker
     navigator.serviceWorker.register('../service-worker.js')
       .then(registration => navigator.serviceWorker.ready)
       .then(registration => {
