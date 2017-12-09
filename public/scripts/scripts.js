@@ -42,7 +42,10 @@ const displayPalettes = (palettes, projectId) => {
 };
 
 const getOfflinePalettes = id => {
-  loadOfflinePalettes(id)
+  loadOfflinePalettes()
+    .then(palettes => {
+      const matchingPalettes = palettes.filter(palette => palette.projectId === id);
+    })
     .then(palettes => displayPalettes(palettes, id))
     .catch(error => { throw error; });
 };
@@ -52,7 +55,6 @@ const getPalettes = projectId => {
     .then(res => res.json())
     .then(res => displayPalettes(res, projectId))
     .catch(error => {
-      getOfflinePalettes(projectId);
       throw error;
     });
 };
@@ -65,9 +67,17 @@ const displayProjects = projects => {
   });
 };
 
+const displayOfflineProjects = projects => {
+  projects.forEach(project => {
+    showProject(project.id, project.title);
+    addProject(project.title);
+    getOfflinePalettes(project.id);
+  });
+};
+
 const getOfflineProjects = () => {
   loadOfflineProjects()
-    .then(projects => displayProjects(projects))
+    .then(projects => displayOfflineProjects(projects))
     .catch(error => { throw error; });
 };
 
@@ -256,7 +266,7 @@ const loadOfflineProjects = () => {
 };
 
 const loadOfflinePalettes = id => {
-  return db.palettes.filter(palette => palette.projectId === id);
+  return db.palettes.toArray();
 };
 
 if ('serviceWorker' in navigator) {
