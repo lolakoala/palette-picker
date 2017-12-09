@@ -45,8 +45,8 @@ const getOfflinePalettes = id => {
   loadOfflinePalettes()
     .then(palettes => {
       const matchingPalettes = palettes.filter(palette => palette.projectId === id);
+      displayPalettes(matchingPalettes, id);
     })
-    .then(palettes => displayPalettes(palettes, id))
     .catch(error => { throw error; });
 };
 
