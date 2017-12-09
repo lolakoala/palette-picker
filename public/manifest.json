@@ -1,27 +1,27 @@
 {
   "short_name": "palettePicker",
   "name": "Lola's Palette Picker",
-  "background_color": "#dcaffd",
-  "theme_color": "#74c7fd",
+  "background_color": "black",
+  "theme_color": "#6b6a6a",
   "display": "fullscreen",
   "icons": [
     {
-      "src": "images/bear48.png",
+      "src": "images/artist-bag48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "images/bear96.png",
+      "src": "images/artist-bag96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "images/bear192.png",
+      "src": "images/artist-bag192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "images/bear512.png",
+      "src": "images/artist-bag512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
