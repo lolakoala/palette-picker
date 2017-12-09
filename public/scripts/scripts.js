@@ -44,7 +44,9 @@ const displayPalettes = (palettes, projectId) => {
 const getOfflinePalettes = id => {
   loadOfflinePalettes()
     .then(palettes => {
+      console.log(palettes);
       const matchingPalettes = palettes.filter(palette => palette.projectId === id);
+      console.log(matchingPalettes);
       displayPalettes(matchingPalettes, id);
     })
     .catch(error => { throw error; });
