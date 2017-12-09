@@ -256,7 +256,7 @@ const loadOfflineProjects = () => {
 };
 
 const loadOfflinePalettes = id => {
-  return db.palettes.toArray().filter(palette => palette.projectId === id);
+  return db.palettes.filter(palette => palette.projectId === id);
 };
 
 if ('serviceWorker' in navigator) {
