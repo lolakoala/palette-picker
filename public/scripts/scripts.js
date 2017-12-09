@@ -176,3 +176,24 @@ $(".lock, .locked").click(event => toggleLockImg(event));
 $('#add-project').click(handleAddProject);
 
 $('.add-pal').click(handleAddPal);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+
+    // Load markdowns from indexedDB
+    // loadOfflineMarkdowns()
+    //   .then(markdowns => appendMarkdowns(markdowns))
+    //   .catch(error => console.log(`Error loading markdowns: ${error}`));
+
+    // Register a new service worker
+    navigator.serviceWorker.register('../service-worker.js')
+      .then(registration => navigator.serviceWorker.ready)
+      .then(registration => {
+        Notification.requestPermission();
+        console.log('ServiceWorker registration successful');
+      }).catch(error => {
+        console.log(`ServiceWorker registration failed: ${error}`);
+      });
+
+  });
+}
