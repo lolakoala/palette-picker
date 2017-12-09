@@ -203,6 +203,7 @@ const createOfflinePalette = (projectId) => {
 
   saveOfflinePalette(palette)
     .then(palette => {
+      console.log(palette.name)
       if (!navigator.onLine) {
         appendPalette(projectId, palette.name, hexArray, palette.id);
       }
