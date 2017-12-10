@@ -1,6 +1,6 @@
 this.addEventListener('install', event => {
   event.waitUntil(
-    caches.open('assets-v3').then(cache => {
+    caches.open('assets-v4').then(cache => {
       return cache.addAll([
         '/',
         '/scripts/scripts.js',
@@ -24,7 +24,7 @@ this.addEventListener('fetch', event => {
 });
 
 this.addEventListener('activate', (event) => {
-  let cacheWhitelist = ['assets-v3'];
+  let cacheWhitelist = ['assets-v4'];
 
   event.waitUntil(
     caches.keys().then(keyList => {
